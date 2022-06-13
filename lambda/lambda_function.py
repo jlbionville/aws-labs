@@ -14,11 +14,12 @@ def lambda_handler(event, context):
     logger.info("Lambda function ARN:%s", context.invoked_function_arn)
     logger.info("CloudWatch log stream name:%s", context.log_stream_name)
     logger.info("CloudWatch log group name:%s",  context.log_group_name)   
-    
+    codeReturnFromInstanceAction={}
     if action=='stop':
-        logger.info(tools.stopInstances())
+        codeReturnFromInstanceAction=tools.stopInstance(instanceId)
     else:
-        logger.info(tools.startInstances())
+        codeReturnFromInstanceAction=tools.stopInstance(instanceId)
+    logger.info(codeReturnFromInstanceAction)
    
     return { 
         'message' : "action done : "+ action,
