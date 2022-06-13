@@ -11,7 +11,7 @@ def startInstance(instanceId):
     response_json=ec2.start_instances(InstanceIds=[instanceId])
     logger.info('started the instances: ' + instanceId)
     return response_json
-def stopInstances(instanceId):
+def stopInstance(instanceId):
     
     response_json=ec2.stop_instances(InstanceIds=[instanceId])
     logger.info('stopped the instance: ' + instanceId)
