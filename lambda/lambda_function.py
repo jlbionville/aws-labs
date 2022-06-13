@@ -14,7 +14,10 @@ def lambda_handler(event, context):
     logger.info("Lambda function ARN:%s", context.invoked_function_arn)
     logger.info("CloudWatch log stream name:%s", context.log_stream_name)
     logger.info("CloudWatch log group name:%s",  context.log_group_name)   
-    codeReturnFromInstanceAction={}
+    codeReturnFromInstanceAction={ 
+        'message' : "action done : "+ action,
+        'statusCode':200
+    }
     if action=='stop':
         codeReturnFromInstanceAction=tools.stopInstance(instanceId)
     else:
@@ -25,3 +28,5 @@ def lambda_handler(event, context):
         'message' : "action done : "+ action,
         'statusCode':200
     }
+   
+    return codeReturnFromInstanceAction
