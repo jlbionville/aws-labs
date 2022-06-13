@@ -7,7 +7,10 @@ list_instances=[]
 
 def lambda_handler(event, context):
     action=event['action']
-    tools.setInstances(event['instances'])
+    instanceId=event['instance']
+    bucketObjectKey=event['"bucketObjectKey"']
+    checksumForInstance=event['checksumForInstance']
+    logger.info("Event Received:%s", event)
     logger.info("Lambda function ARN:%s", context.invoked_function_arn)
     logger.info("CloudWatch log stream name:%s", context.log_stream_name)
     logger.info("CloudWatch log group name:%s",  context.log_group_name)   
