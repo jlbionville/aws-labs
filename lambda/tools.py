@@ -16,3 +16,7 @@ def stopInstances(instanceId):
     response_json=ec2.stop_instances(InstanceIds=[instanceId])
     logger.info('stopped the instance: ' + instanceId)
     return response_json
+
+def validateUploadFileInBucket(fileChecksum, bucketObjectKey):
+    logger.info('file in bucket to check: ' + bucketObjectKey)
+    logger.info('Checksum of th file in bucket to check: ' + fileChecksum)
