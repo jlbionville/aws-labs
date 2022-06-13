@@ -18,15 +18,18 @@ def lambda_handler(event, context):
         'message' : "action done : "+ action,
         'statusCode':200
     }
-    if action=='stop':
-        codeReturnFromInstanceAction=tools.stopInstance(instanceId)
-    else:
-        codeReturnFromInstanceAction=tools.stopInstance(instanceId)
-    logger.info(codeReturnFromInstanceAction)
-   
-    return { 
-        'message' : "action done : "+ action,
-        'statusCode':200
+    try:
+        tools.validateInstanceId(instanceId)
+        
+        if action=='stop':
+            codeReturnFromInstanceAction=tools.stopInstance(instanceId)
+        else:
+            codeReturnFromInstanceAction=tools.startInstance(instanceId)
+        logger.info(codeReturnFromInstanceAction)
+    except Exception as e:
+        codeReturnFromInstanceAction={ 
+        'message' : "action  : "+ action,
+        'statusCode':400
     }
    
     return codeReturnFromInstanceAction
