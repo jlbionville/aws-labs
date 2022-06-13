@@ -8,7 +8,7 @@ list_instances=[]
 def lambda_handler(event, context):
     action=event['action']
     instanceId=event['instance']
-    bucketObjectKey=event['"bucketObjectKey"']
+    bucketObjectKey=event['bucketObjectKey']
     checksumForInstance=event['checksumForInstance']
     logger.info("Event Received:%s", event)
     logger.info("Lambda function ARN:%s", context.invoked_function_arn)
