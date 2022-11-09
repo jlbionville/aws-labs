@@ -4,7 +4,10 @@ Parameters:
     Type: String
     # for eu-west-3
     Default: '10.0.0.0/16'
- 
+  DbSubnetIpBlocks:
+    Description: list of three CIDR block used to create ec2:DescribeSubnets
+    Type: CommaDelimitedList
+    Default: "10.0.0.0/24, 10.0.1.0/24 , 10.0.2.0/24"
 
 Resources:
   CloudFormationVPC:
@@ -26,7 +29,7 @@ Resources:
     Properties:
       VpcId:
         Ref: CloudFormationVPC
-      CidrBlock: 10.0.0.0/24
+      CidrBlock: !Select [0,!Ref DbSubnetIpBlocks]
       
       Tags:
         - Key : "environment"
@@ -42,7 +45,7 @@ Resources:
     Properties:
       VpcId:
         Ref: CloudFormationVPC
-      CidrBlock: 10.0.1.0/24
+      CidrBlock: !Select [1, !Ref DbSubnetIpBlocks]
       #AvailabilityZone: "eu-west-1a"
       Tags:
         - Key : "environment"
@@ -58,7 +61,7 @@ Resources:
     Properties:
       VpcId:
         Ref: CloudFormationVPC
-      CidrBlock: 10.0.2.0/24
+      CidrBlock: !Select [2, !Ref DbSubnetIpBlocks]
       #AvailabilityZone: "eu-west-1a"
       Tags:
         - Key : "environment"
