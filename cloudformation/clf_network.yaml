@@ -1,0 +1,71 @@
+Parameters:
+  myVPCCIDRRange:
+    Description: block size for VPC
+    Type: String
+    # for eu-west-3
+    Default: '10.0.0.0/16'
+ 
+
+Resources:
+  CloudFormationVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref myVPCCIDRRange
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      InstanceTenancy: default
+      Tags:
+        - Key : "environment"
+          Value: "development"
+        - Key : "project"
+          Value: "certification"
+        - Key : "Name"
+          Value: "CloudFormationVPC"
+  DBSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: CloudFormationVPC
+      CidrBlock: 10.0.0.0/24
+      
+      Tags:
+        - Key : "environment"
+          Value: "development"
+        - Key : "project"
+          Value: "certification"
+        - Key : "Name"
+          Value: "CloudFormationVPC"        
+        - Key: "Type"
+          Value: "Database"
+  FrontSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: CloudFormationVPC
+      CidrBlock: 10.0.1.0/24
+      #AvailabilityZone: "eu-west-1a"
+      Tags:
+        - Key : "environment"
+          Value: "development"
+        - Key : "project"
+          Value: "certification"
+        - Key : "Name"
+          Value: "CloudFormationVPC"        
+        - Key: "Type"
+          Value: "Front"          
+  BackSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: CloudFormationVPC
+      CidrBlock: 10.0.2.0/24
+      #AvailabilityZone: "eu-west-1a"
+      Tags:
+        - Key : "environment"
+          Value: "development"
+        - Key : "project"
+          Value: "certification"
+        - Key : "Name"
+          Value: "CloudFormationVPC"        
+        - Key: "Type"
+          Value: "Back"    
