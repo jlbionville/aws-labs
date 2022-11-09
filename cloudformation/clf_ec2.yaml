@@ -1,17 +1,54 @@
+Parameters:
+  AWSImageId:
+    Description: Image ID to launch EC2 instances
+    Type: AWS::EC2::Image::Id
+    # for eu-west-3
+    Default: 'ami-02b01316e6e3496d9'
+  AWSInstanceType:
+    Description: Instance type to launch EC2 instances.
+    Type: String
+    Default: t2.small
+    AllowedValues: [ t2.small,t2.nano ]   
+  EC2KeyPair:
+    Default: MyKeyPair
+    Type: String
+    Description: Clef pour se connecter à l'EC2.
+  InstanceRoleForEC2:
+    Default: ec2-role
+    Type: String
+    Description: IAM role for EC2 instance
+    AllowedValues: [ ec2-role ]  
 Resources:
+  EC2InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties: 
+      InstanceProfileName: CloudFormationEC2InstanceProfile
+      Path: /formation/
+      Roles: 
+        - !Ref InstanceRoleForEC2
   Ec2Instance:
     Type: 'AWS::EC2::Instance'
     Properties:
-      InstanceType: t2.small
+      IamInstanceProfile: !Ref EC2InstanceProfile
+      #DisableApiTermination: true
+      InstanceType: !Ref AWSInstanceType
       SecurityGroups:
         - !Ref InstanceSecurityGroup
-      KeyName: MyKeyPair
-      ImageId: 'ami-02b01316e6e3496d9'
-      BlockDeviceMappings:
-      -
-        DeviceName: /dev/sda1
-        Ebs:
-          VolumeSize: 8              
+      KeyName: !Ref EC2KeyPair
+      ImageId: !Ref AWSImageId
+      # BlockDeviceMappings:
+      # -
+      #   DeviceName: /dev/sda1
+      #   Ebs:
+      #     VolumeSize: 8   
+      Tags:
+        - Key : "environment"
+          Value: "development"
+        - Key : "project"
+          Value: "certification"                     
+        - Key : "Name"
+          Value: "EC2Certification"                     
+
   InstanceSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
@@ -34,10 +71,5 @@ Resources:
           Value: "development"
         - Key : "project"
           Value: "certification"
-  CloudFormationVPC:
-    Type: AWS::EC2::VPC
-    Properties:
-      CidrBlock: !Ref myVPCCIDRRange
-      EnableDnsSupport: false
-      EnableDnsHostnames: false
-      InstanceTenancy: default
+        - Key : Name
+          Value: SGBasic
