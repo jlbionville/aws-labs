@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Sending SMS Texts with SNS & Lambda
+
+Resources:
+  SNSTopicForCloudformation:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: TopicForCloudformation
+      DisplayName: TopicForCloudformation
+      Subscription:
+      - Endpoint: "devops@alfaco.fr"
+        Protocol: email
+      Tags: 
+        - Key : "environment"
+          Value: "development"
+        - Key : "project"
+          Value: "certification"
+
+  SNSTopicForCICD:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: TopicForCICD
+      DisplayName: TopicForCICD
+      Subscription:
+      - Endpoint: "devops@alfaco.fr"
+        Protocol: email        
+      Tags: 
+        - Key : "environment"
+          Value: "development"
+        - Key : "project"
+          Value: "certification"
+
+  SNSTopicForDeveloper:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: TopicForDeveloper
+      DisplayName: TopicForDeveloper
+      Subscription:
+      - Endpoint: "devops@alfaco.fr"
+        Protocol: email    
+      Tags: 
+        - Key : "environment"
+          Value: "development"
+        - Key : "project"
+          Value: "certification"
+
