@@ -1,0 +1,20 @@
+
+
+Resources:
+  BucketForCloudFormation:
+    Type: 'AWS::S3::Bucket'
+    Properties:      
+      BucketName : bucket-for-template-cloudformation    
+      Tags:
+        - Key : "environment"
+          Value: "development"
+        - Key : "project"
+          Value: "certification"                     
+        - Key : "Name"
+          Value: "S3ForCloudFormation"
+      VersioningConfiguration:
+        Status: Enabled
+      
+      LoggingConfiguration:
+        DestinationBucketName: "cloudformation-bucket-logs"
+        LogFilePrefix: cloudformation
