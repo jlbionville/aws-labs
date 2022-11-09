@@ -1,0 +1,12 @@
+Resources:
+  BucketForLogs:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName : cloudformation-bucket-logs
+      Tags:
+        - Key : "environment"
+          Value: "development"
+        - Key : "project"
+          Value: "certification"                     
+        - Key : "componentType"
+          Value: "monitoring"
