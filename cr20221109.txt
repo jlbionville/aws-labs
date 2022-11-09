@@ -1,0 +1,2 @@
+aws cloudformation create-stack --stack-name SnsStack --template-body file://cloudformation/clf_sns.yaml --capabilities CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM CAPABILITY_IAM
+aws cloudformation delete-stack --stack-name SnsStack

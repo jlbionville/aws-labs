@@ -150,3 +150,5 @@ aws ec2 authorize-security-group-ingress --group-id sg-0fe7be4e3755c8a87 --proto
 
 aws ec2 run-instances --image-id ami-02b01316e6e3496d9 --count 1 --instance-type t2.micro --key-name MyKeyPair --security-group-ids sg-0fe7be4e3755c8a87 --subnet-id $SUBNET_ID_AWS
 #i-0a7aa61067d558600
+
+aws iam list-users --query 'Users[*].UserName Users[*].Arn '
