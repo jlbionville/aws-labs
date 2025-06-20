@@ -32,8 +32,9 @@ resource "aws_lambda_permission" "api_gw_post" {
   source_arn    = "${aws_api_gateway_rest_api.bookmarks_api.execution_arn}/*/*"
 }
 
-resource "aws_api_gateway_deployment" "deploy" {
-  depends_on = [aws_api_gateway_integration.post_bookmark]
-  rest_api_id = aws_api_gateway_rest_api.bookmarks_api.id
-  stage_name  = "dev"
-}
+# resource "aws_api_gateway_deployment" "deploy" {
+#   depends_on = [aws_api_gateway_integration.post_bookmark]
+#   rest_api_id = aws_api_gateway_rest_api.bookmarks_api.id
+#   stage_name  = "dev"
+# }
+
