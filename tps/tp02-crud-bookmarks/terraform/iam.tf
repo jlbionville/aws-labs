@@ -16,3 +16,28 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
   role       = aws_iam_role.lambda_exec.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
+
+resource "aws_iam_policy" "dynamodb_rw" {
+  name        = "dynamodb-bookmarks-rw"
+  description = "Allow read/write access to the bookmarks table"
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "dynamodb:PutItem",
+          "dynamodb:GetItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:Scan"
+        ],
+        Resource = aws_dynamodb_table.bookmarks.arn
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_dynamodb_rw" {
+  role       = aws_iam_role.lambda_exec.name
+  policy_arn = aws_iam_policy.dynamodb_rw.arn
+}
