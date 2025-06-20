@@ -1,0 +1,108 @@
+openapi: 3.0.3
+info:
+  title: Bookmarks API
+  version: "1.0.0"
+  description: CRUD service for storing bookmarks
+servers:
+  - url: https://{restapi_id}.execute-api.{region}.amazonaws.com/{stage}
+    variables:
+      restapi_id:
+        default: YOUR_API_ID
+      region:
+        default: eu-west-1
+      stage:
+        default: dev
+tags:
+  - name: bookmarks
+    description: Manage bookmarks
+paths:
+  /bookmarks:
+    get:
+      tags: [bookmarks]
+      summary: List bookmarks
+      responses:
+        "200":
+          description: List of bookmarks
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Bookmarks"
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{region}:{accountId}:function:list_bookmarks/invocations"
+        payloadFormatVersion: "2.0"
+    post:
+      tags: [bookmarks]
+      summary: Create bookmark
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookmarkInput"
+      responses:
+        "201":
+          description: Created bookmark
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Bookmark"
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{region}:{accountId}:function:create_bookmark/invocations"
+        payloadFormatVersion: "2.0"
+  /bookmarks/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema: { type: string }
+    get:
+      tags: [bookmarks]
+      summary: Get bookmark
+      responses:
+        "200":
+          description: Bookmark
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Bookmark"
+        "404":
+          description: Not found
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{region}:{accountId}:function:get_bookmark/invocations"
+        payloadFormatVersion: "2.0"
+    delete:
+      tags: [bookmarks]
+      summary: Delete bookmark
+      responses:
+        "204":
+          description: Deleted
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{region}:{accountId}:function:delete_bookmark/invocations"
+        payloadFormatVersion: "2.0"
+components:
+  schemas:
+    Bookmark:
+      type: object
+      required: [id, url, title, createdAt]
+      properties:
+        id:        { type: string, format: uuid }
+        url:       { type: string, format: uri }
+        title:     { type: string }
+        createdAt: { type: string, format: date-time }
+    BookmarkInput:
+      type: object
+      required: [url, title]
+      properties:
+        url:   { type: string, format: uri }
+        title: { type: string }
+    Bookmarks:
+      type: array
+      items: { $ref: "#/components/schemas/Bookmark" }
