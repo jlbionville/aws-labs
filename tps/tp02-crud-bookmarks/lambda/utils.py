@@ -1,0 +1,1 @@
+# Placeholder pour des fonctions communes (ex: validate input, format response)

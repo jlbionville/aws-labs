@@ -127,3 +127,17 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+tps/tp02-crud-bookmarks/lambda/create.zip
+**/*.zip
+**/*.hcl
+**.tfstate
+tps/tp01-hello-api/terraform/.terraform/providers/registry.terraform.io/hashicorp/archive/2.7.1/linux_amd64/LICENSE.txt
+tps/tp01-hello-api/terraform/.terraform/providers/registry.terraform.io/hashicorp/archive/2.7.1/linux_amd64/terraform-provider-archive_v2.7.1_x5
+tps/tp01-hello-api/terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/5.100.0/linux_amd64/LICENSE.txt
+tps/tp01-hello-api/terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/5.100.0/linux_amd64/terraform-provider-aws_v5.100.0_x5
+tps/tp02-crud-bookmarks/terraform/.terraform/providers/registry.terraform.io/hashicorp/archive/2.7.1/linux_amd64/LICENSE.txt
+tps/tp02-crud-bookmarks/terraform/.terraform/providers/registry.terraform.io/hashicorp/archive/2.7.1/linux_amd64/terraform-provider-archive_v2.7.1_x5
+tps/tp02-crud-bookmarks/terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/5.100.0/linux_amd64/LICENSE.txt
+tps/tp02-crud-bookmarks/terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/5.100.0/linux_amd64/terraform-provider-aws_v5.100.0_x5
+tps/tp01-hello-api/terraform/sortie
+tps/tp02-crud-bookmarks/terraform/sortie
